@@ -121,7 +121,7 @@ type CompactOverlayProps = PropsRuntime<'shell.overlay'> & PropsLocale<'mobile-l
   toggleSidebar: () => void
 }
 
-function CompactOverlay({ toggleSidebar, t }: CompactOverlayProps) {
+function CompactOverlay({ toggleSidebar, t, useSessions }: CompactOverlayProps) {
   const hostRef = useRef<HTMLDivElement | null>(null)
   const frameRef = useRef<HTMLElement | null>(null)
   const expandedForDrawer = useRef(false)
@@ -129,6 +129,8 @@ function CompactOverlay({ toggleSidebar, t }: CompactOverlayProps) {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const [revision, setRevision] = useState(0)
+  const currentSession = useSessions(state => state.current)
+  const previousSession = useRef(currentSession)
 
   const closeDrawer = useCallback(() => {
     setDrawerOpen(false)
@@ -175,6 +177,11 @@ function CompactOverlay({ toggleSidebar, t }: CompactOverlayProps) {
     frame.toggleAttribute('data-dsh-mobile-drawer-open', compact && drawerOpen)
     if (!compact && drawerOpen) closeDrawer()
   }, [closeDrawer, compact, drawerOpen])
+
+  useEffect(() => {
+    if (previousSession.current !== currentSession && drawerOpen) closeDrawer()
+    previousSession.current = currentSession
+  }, [closeDrawer, currentSession, drawerOpen])
 
   useEffect(() => {
     if (!drawerOpen && !moreOpen) return
