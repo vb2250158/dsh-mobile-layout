@@ -1,0 +1,50 @@
+{
+  "name": "dsh-mobile-layout",
+  "version": "0.1.0",
+  "description": "Responsive DSH shell with a GPT-style top menu and overlay navigation drawer on mobile screens.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-locale"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.1",
+    "@deepseek-ai/dsh-client-locale": ">=0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-runtime": ">=0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-ui-slots": ">=0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-ui-theme": ">=0.1.0-rc.8",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  },
+  "files": [
+    "lib",
+    "src",
+    "scripts",
+    "tests",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/plugin.test.mjs",
+    "check": "npm run build && npm test"
+  },
+  "license": "MIT"
+}
