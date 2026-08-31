@@ -10,6 +10,7 @@ const clientResult = await build({
   format: 'cjs',
   platform: 'browser',
   target: 'es2022',
+  jsx: 'automatic',
   write: false,
   loader: { '.css': 'text' },
   external: ['react', 'react/jsx-runtime', '@deepseek-ai/*'],
