@@ -21,32 +21,26 @@ async function loadClient() {
   }
 }
 
-test('bundle patch replaces the official layout row', async () => {
+test('bundle patch inserts the compact adapter beside the official layout', async () => {
   const patch = await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8')
-  assert.equal(patch, '- id: ui-layout\n  name: dsh-mobile-layout\n')
+  assert.equal(patch, '- insert:\n    - id: mobile-layout\n      name: dsh-mobile-layout\n')
 })
 
-test('client exports the mobile breakpoint and preserves desktop column behavior', async () => {
+test('client selects compact mode from the live container ratio', async () => {
   const client = await loadClient()
-  assert.deepEqual(client.inject, ['slots', 'theme', 'locale'])
-  assert.equal(client.isMobileViewport(767, 700), true)
-  assert.equal(client.isMobileViewport(768, 600), false)
-  assert.equal(client.isMobileViewport(834, 1194), true)
-  assert.equal(client.isMobileViewport(1024, 768), false)
-  assert.deepEqual(client.computeDesktopColumns(1440, 280, 360), {
-    sidebar: 280,
-    center: 800,
-    details: 360,
-  })
+  assert.deepEqual(client.inject, ['slots', 'locale', 'layout'])
+  assert.equal(client.isCompactViewport(767, 700), true)
+  assert.equal(client.isCompactViewport(768, 600), false)
+  assert.equal(client.isCompactViewport(834, 1194), true)
+  assert.equal(client.isCompactViewport(1024, 768), false)
 })
 
-test('client bundle contains the single-row controls, drawer, overflow menu, and mobile details surface', async () => {
+test('client bundle contains the single-row controls, proportional drawer, and overflow menu', async () => {
   const bundle = await readFile(new URL('../lib/client.js', import.meta.url), 'utf8')
   assert.match(bundle, /dsh-mobile-layout-top-button/)
-  assert.match(bundle, /dsh-mobile-layout-drawer/)
+  assert.match(bundle, /data-dsh-mobile-sidebar/)
   assert.match(bundle, /dsh-mobile-layout-scrim/)
   assert.match(bundle, /dsh-mobile-layout-more-menu/)
   assert.match(bundle, /data-dsh-mobile-view-tabs/)
-  assert.match(bundle, /dsh-mobile-layout-mobile-details/)
-  assert.match(bundle, /aria-modal/)
+  assert.match(bundle, /shell\.overlay/)
 })

@@ -1,7 +1,7 @@
 {
   "name": "dsh-mobile-layout",
-  "version": "0.1.1",
-  "description": "Responsive DSH shell with a GPT-style top menu and overlay navigation drawer on mobile screens.",
+  "version": "0.2.0",
+  "description": "Ratio-aware compact shell layer for DeepSeek Harness with a single-row header and navigation drawer.",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -17,8 +17,8 @@
       "platform": "web",
       "inject": [
         "@deepseek-ai/dsh-client-runtime",
-        "@deepseek-ai/dsh-client-ui-theme",
-        "@deepseek-ai/dsh-client-locale"
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-layout"
       ]
     }
   },
@@ -26,8 +26,8 @@
     "@deepseek-ai/cordis": ">=4.0.1",
     "@deepseek-ai/dsh-client-locale": ">=0.1.0-rc.8",
     "@deepseek-ai/dsh-client-runtime": ">=0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-ui-layout": ">=0.1.0-rc.8",
     "@deepseek-ai/dsh-client-ui-slots": ">=0.1.0-rc.8",
-    "@deepseek-ai/dsh-client-ui-theme": ">=0.1.0-rc.8",
     "react": "^18.2.0"
   },
   "devDependencies": {
