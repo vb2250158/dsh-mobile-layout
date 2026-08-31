@@ -7,6 +7,9 @@ import type { ThemeSnapshot } from '@deepseek-ai/dsh-client-ui-theme/client'
 import STYLES from './styles.css'
 
 export const MOBILE_BREAKPOINT = 768
+export const MOBILE_BREAKPOINT_MIN = 720
+export const MOBILE_BREAKPOINT_MAX = 920
+export const MOBILE_PORTRAIT_RATIO = 0.75
 export const SIDEBAR_DEFAULT = 280
 export const SIDEBAR_MIN = 264
 export const SIDEBAR_MAX = 420
@@ -78,8 +81,12 @@ interface LayoutActions {
   closeDetails: (draft: LayoutState) => void
 }
 
-export function isMobileViewport(width: number): boolean {
-  return width < MOBILE_BREAKPOINT
+export function isMobileViewport(width: number, height = width): boolean {
+  const proportionalBreakpoint = Math.min(
+    MOBILE_BREAKPOINT_MAX,
+    Math.max(MOBILE_BREAKPOINT_MIN, Math.round(height * MOBILE_PORTRAIT_RATIO)),
+  )
+  return width < MOBILE_BREAKPOINT || width <= proportionalBreakpoint
 }
 
 function clampWidth(width: number, minimum: number, maximum: number): number {
@@ -436,7 +443,7 @@ export function ResponsiveFrame({ useStore, useSessions, actions, renderSlot, t 
     return current !== undefined && state.byId[current]?.blank === false ? current : undefined
   })
   const frameRef = useRef<HTMLDivElement | null>(null)
-  const [viewport, setViewport] = useState(() => window.innerWidth)
+  const [viewport, setViewport] = useState(() => ({ width: window.innerWidth, height: window.innerHeight }))
 
   useEffect(() => {
     const element = frameRef.current
@@ -445,8 +452,8 @@ export function ResponsiveFrame({ useStore, useSessions, actions, renderSlot, t 
     const observer = new ResizeObserver(() => {
       animationFrame ??= requestAnimationFrame(() => {
         animationFrame = null
-        const width = element.getBoundingClientRect().width
-        if (width > 0) setViewport(width)
+        const rect = element.getBoundingClientRect()
+        if (rect.width > 0 && rect.height > 0) setViewport({ width: rect.width, height: rect.height })
       })
     })
     observer.observe(element)
@@ -456,7 +463,7 @@ export function ResponsiveFrame({ useStore, useSessions, actions, renderSlot, t 
     }
   }, [])
 
-  const mobile = isMobileViewport(viewport)
+  const mobile = isMobileViewport(viewport.width, viewport.height)
   useEffect(() => { actions.setMobile(mobile) }, [actions, mobile])
 
   const previousSession = useRef(currentSession)
@@ -484,7 +491,7 @@ export function ResponsiveFrame({ useStore, useSessions, actions, renderSlot, t 
   }, [actions, mobile, panels.details, panels.mobileMenuOpen])
 
   const sidebarCollapsed = panels.sidebar === 0
-  const columns = computeDesktopColumns(viewport, panels.sidebar, detailsSession === undefined ? 0 : panels.details)
+  const columns = computeDesktopColumns(viewport.width, panels.sidebar, detailsSession === undefined ? 0 : panels.details)
   const columnsRef = useRef(columns)
   columnsRef.current = columns
   const sidebarBase = useRef(0)
@@ -492,7 +499,7 @@ export function ResponsiveFrame({ useStore, useSessions, actions, renderSlot, t 
   const [dragging, setDragging] = useState(false)
 
   if (mobile) {
-    const drawerWidth = Math.min(360, Math.max(280, Math.round(viewport * 0.88)))
+    const drawerWidth = Math.max(0, Math.round(Math.min(viewport.width * 0.86, viewport.width - 48)))
     return (
       <div ref={frameRef} className="dsh-mobile-layout-frame" data-mobile>
         <div className="dsh-mobile-layout-mobile-topbar" aria-hidden="true" />
@@ -566,7 +573,7 @@ export function ResponsiveFrame({ useStore, useSessions, actions, renderSlot, t 
       {columns.details > 0 && (
         <DragHandle
           side="details"
-          left={viewport - columns.details}
+          left={viewport.width - columns.details}
           onStart={() => { detailsBase.current = columnsRef.current.details; setDragging(true) }}
           onDrag={(delta) => { actions.setDetails(detailsBase.current - delta) }}
           onEnd={() => { setDragging(false) }}

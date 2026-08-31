@@ -29,8 +29,10 @@ test('bundle patch replaces the official layout row', async () => {
 test('client exports the mobile breakpoint and preserves desktop column behavior', async () => {
   const client = await loadClient()
   assert.deepEqual(client.inject, ['slots', 'theme', 'locale'])
-  assert.equal(client.isMobileViewport(767), true)
-  assert.equal(client.isMobileViewport(768), false)
+  assert.equal(client.isMobileViewport(767, 700), true)
+  assert.equal(client.isMobileViewport(768, 600), false)
+  assert.equal(client.isMobileViewport(834, 1194), true)
+  assert.equal(client.isMobileViewport(1024, 768), false)
   assert.deepEqual(client.computeDesktopColumns(1440, 280, 360), {
     sidebar: 280,
     center: 800,

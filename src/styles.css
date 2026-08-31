@@ -124,11 +124,11 @@
 }
 
 .dsh-mobile-layout-menu-button {
-  left: 6px;
+  left: max(6px, env(safe-area-inset-left));
 }
 
 .dsh-mobile-layout-more-button {
-  right: 6px;
+  right: max(6px, env(safe-area-inset-right));
 }
 
 .dsh-mobile-layout-mobile-content {
@@ -152,7 +152,7 @@
 .dsh-mobile-layout-more-menu {
   position: absolute;
   top: calc(env(safe-area-inset-top) + 50px);
-  right: 8px;
+  right: max(8px, env(safe-area-inset-right));
   z-index: 42;
   width: min(280px, calc(100vw - 16px));
   max-height: min(70vh, 520px);
@@ -228,6 +228,10 @@
   border-right: 1px solid var(--dsw-alias-border-l1);
   box-shadow: 12px 0 36px rgb(0 0 0 / 22%);
   animation: dsh-mobile-layout-drawer-in 220ms var(--ds-ease-in-out);
+}
+
+.dsh-mobile-layout-drawer > * {
+  width: 100% !important;
 }
 
 .dsh-mobile-layout-mobile-details {

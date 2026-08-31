@@ -5,9 +5,9 @@ Responsive shell replacement for DeepSeek Harness Web.
 ## Behavior
 
 - Desktop screens keep the standard three-column layout, collapsed sidebar rail, details panel, and draggable dividers.
-- Screens narrower than `768px` use a single full-width conversation surface.
+- Compact mode follows both container width and height: portrait screens switch earlier, while sufficiently wide landscape screens keep the desktop layout.
 - The desktop session header is replaced by one 48 px mobile bar with no second row.
-- The far-left menu button opens the existing DSH sidebar as a modal navigation drawer.
+- The far-left menu button opens the existing DSH sidebar as a modal navigation drawer sized from the current viewport width.
 - The far-right overflow button contains view switching, Session log, mode information, and other header actions.
 - The drawer closes from its own sidebar toggle, the backdrop, `Escape`, or after switching sessions.
 - Tool details open as a full-width mobile overlay instead of squeezing the conversation.
