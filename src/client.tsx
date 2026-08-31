@@ -97,11 +97,21 @@ function MoreIcon() {
 
 function annotateFrame(frame: HTMLElement): void {
   const children = Array.from(frame.children)
-  children[0]?.setAttribute('data-dsh-mobile-sidebar', '')
+  const sidebar = children[0] as HTMLElement | undefined
+  sidebar?.setAttribute('data-dsh-mobile-sidebar', '')
   children[1]?.setAttribute('data-dsh-mobile-conversation', '')
   children[2]?.setAttribute('data-dsh-mobile-details', '')
   for (const child of children) {
     if (child.hasAttribute('data-side')) child.setAttribute('data-dsh-mobile-handle', '')
+  }
+
+  const settingsDialog = sidebar?.querySelector<HTMLElement>('[role="dialog"][aria-modal="true"]') ?? null
+  frame.toggleAttribute('data-dsh-mobile-settings-open', settingsDialog !== null)
+  if (settingsDialog !== null) {
+    settingsDialog.dataset.dshMobileSettingsDialog = ''
+    settingsDialog.children[0]?.setAttribute('data-dsh-mobile-settingsNav', '')
+    settingsDialog.children[1]?.setAttribute('data-dsh-mobile-settingsContent', '')
+    settingsDialog.children[0]?.children[1]?.setAttribute('data-dsh-mobile-settingsNavList', '')
   }
 
   const header = frame.querySelector<HTMLElement>('[data-dsh-mobile-conversation] [data-slot="conversation.session.header"] > header')
@@ -166,6 +176,7 @@ function CompactOverlay({ toggleSidebar, t, useSessions }: CompactOverlayProps) 
       mutationObserver.disconnect()
       frame.removeAttribute('data-dsh-mobile-compact')
       frame.removeAttribute('data-dsh-mobile-drawer-open')
+      frame.removeAttribute('data-dsh-mobile-settings-open')
       frame.style.removeProperty('--dsh-mobile-drawer-width')
       frameRef.current = null
     }
