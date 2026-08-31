@@ -42,6 +42,7 @@ test('client bundle contains the single-row controls, proportional drawer, and o
   assert.match(bundle, /dsh-mobile-layout-scrim/)
   assert.match(bundle, /dsh-mobile-layout-more-menu/)
   assert.match(bundle, /data-dsh-mobile-view-tabs/)
+  assert.match(bundle, /conversation\.session\.header/)
   assert.match(bundle, /shell\.overlay/)
   assert.doesNotMatch(bundle, /React\.createElement/)
 })

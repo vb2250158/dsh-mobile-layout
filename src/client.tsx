@@ -104,7 +104,7 @@ function annotateFrame(frame: HTMLElement): void {
     if (child.hasAttribute('data-side')) child.setAttribute('data-dsh-mobile-handle', '')
   }
 
-  const header = frame.querySelector<HTMLElement>('[data-dsh-mobile-conversation] > [data-phase] > header')
+  const header = frame.querySelector<HTMLElement>('[data-dsh-mobile-conversation] [data-slot="conversation.session.header"] > header')
   if (header === null) return
   header.dataset.dshMobileSessionHeader = ''
   const titleRow = header.firstElementChild as HTMLElement | null
