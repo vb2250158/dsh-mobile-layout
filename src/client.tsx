@@ -109,9 +109,9 @@ function annotateFrame(frame: HTMLElement): void {
   frame.toggleAttribute('data-dsh-mobile-settings-open', settingsDialog !== null)
   if (settingsDialog !== null) {
     settingsDialog.dataset.dshMobileSettingsDialog = ''
-    settingsDialog.children[0]?.setAttribute('data-dsh-mobile-settingsNav', '')
-    settingsDialog.children[1]?.setAttribute('data-dsh-mobile-settingsContent', '')
-    settingsDialog.children[0]?.children[1]?.setAttribute('data-dsh-mobile-settingsNavList', '')
+    settingsDialog.children[0]?.setAttribute('data-dsh-mobile-settings-nav', '')
+    settingsDialog.children[1]?.setAttribute('data-dsh-mobile-settings-content', '')
+    settingsDialog.children[0]?.children[1]?.setAttribute('data-dsh-mobile-settings-nav-list', '')
   }
 
   const header = frame.querySelector<HTMLElement>('[data-dsh-mobile-conversation] [data-slot="conversation.session.header"] > header')
