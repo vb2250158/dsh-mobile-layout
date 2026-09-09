@@ -34,8 +34,8 @@
   box-shadow: none;
 }
 
-[data-dsh-mobile-settings-open] .dsh-mobile-layout-topbar,
-[data-dsh-mobile-settings-open] .dsh-mobile-layout-top-button {
+[data-dsh-mobile-compact] [data-dsh-mobile-settings-open] .dsh-mobile-layout-topbar,
+[data-dsh-mobile-compact] [data-dsh-mobile-settings-open] .dsh-mobile-layout-top-button {
   display: none;
 }
 
@@ -58,7 +58,7 @@
   display: none !important;
 }
 
-[data-dsh-mobile-settings-dialog] {
+[data-dsh-mobile-compact] [data-dsh-mobile-settings-dialog] {
   width: calc(100% - 16px) !important;
   height: calc(100% - 16px) !important;
   max-width: none !important;
@@ -67,7 +67,7 @@
   flex-direction: column !important;
 }
 
-[data-dsh-mobile-settings-nav] {
+[data-dsh-mobile-compact] [data-dsh-mobile-settings-nav] {
   width: 100% !important;
   height: auto !important;
   flex: none !important;
@@ -75,7 +75,7 @@
   border-bottom: 1px solid var(--dsw-alias-border-l1);
 }
 
-[data-dsh-mobile-settings-nav-list] {
+[data-dsh-mobile-compact] [data-dsh-mobile-settings-nav-list] {
   display: flex !important;
   flex-direction: row !important;
   gap: 4px;
@@ -87,18 +87,18 @@
   scrollbar-width: none;
 }
 
-[data-dsh-mobile-settings-nav-list]::-webkit-scrollbar {
+[data-dsh-mobile-compact] [data-dsh-mobile-settings-nav-list]::-webkit-scrollbar {
   display: none;
 }
 
-[data-dsh-mobile-settings-nav-list] > * {
+[data-dsh-mobile-compact] [data-dsh-mobile-settings-nav-list] > * {
   flex: none !important;
   width: auto !important;
   min-width: max-content;
   white-space: nowrap;
 }
 
-[data-dsh-mobile-settings-content] {
+[data-dsh-mobile-compact] [data-dsh-mobile-settings-content] {
   width: 100% !important;
   min-width: 0 !important;
   min-height: 0 !important;

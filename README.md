@@ -23,3 +23,5 @@ Add the package as a Web profile bundle and restart DSH. Its `cordis.patch.yml` 
 npm install
 npm run check
 ```
+
+Settings layout overrides apply only inside the compact layout. Desktop uses the official centered dialog; compact screens retain the edge-fitting dialog and horizontal settings navigation.
