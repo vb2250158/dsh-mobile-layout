@@ -30,9 +30,15 @@ test('client selects compact mode from the live container ratio', async () => {
   const client = await loadClient()
   assert.deepEqual(client.inject, ['slots', 'locale', 'layout'])
   assert.equal(client.isCompactViewport(767, 700), true)
-  assert.equal(client.isCompactViewport(768, 600), false)
+  assert.equal(client.isCompactViewport(768, 600), true)
   assert.equal(client.isCompactViewport(834, 1194), true)
-  assert.equal(client.isCompactViewport(1024, 768), false)
+  assert.equal(client.isCompactViewport(1024, 768), true)
+  assert.equal(client.isCompactViewport(1194, 834), true)
+  assert.equal(client.isCompactViewport(1280, 800), true)
+  assert.equal(client.isCompactViewport(1281, 800), false)
+  assert.equal(client.isCompactViewport(1366, 1024), false)
+  assert.equal(client.isCompactViewport(1366, 2048), true)
+  assert.equal(client.isCompactViewport(1920, 1080), false)
 })
 
 test('client bundle contains the single-row controls, proportional drawer, and overflow menu', async () => {
