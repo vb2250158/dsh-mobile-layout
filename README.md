@@ -1,5 +1,12 @@
 # dsh-mobile-layout
 
+## 0.2.6：聊天更新不再触发布局测量
+
+仅页头、设置对话框和外层结构变更触发布局刷新；窗口变化与同一帧内的 DOM 变化合并处理。聊天流和侧栏任务状态更新不再触发整页测量，卸载时取消待执行刷新。
+
+Refresh compact layout only for header, settings dialog, shell structure, or size changes. Coalesce refreshes within one frame and cancel pending work on disposal; transcript and sidebar activity no longer force layout measurements.
+
+
 Ratio-aware compact shell layer for DeepSeek Harness Web.
 
 ## Behavior

@@ -127,6 +127,20 @@ function annotateFrame(frame: HTMLElement): void {
   if (tabs !== null) tabs.dataset.dshMobileViewTabs = ''
 }
 
+/** Whether DOM edits affect the compact header, shell structure, or settings dialog.
+ * @param records Observed DOM changes.
+ * @param frame Shell container.
+ * @returns Whether annotations and compact menu entries need refreshing.
+ */
+export function affectsCompactLayout(records: MutationRecord[], frame: HTMLElement): boolean {
+  const selector = '[data-slot="conversation.session.header"], [role="dialog"][aria-modal="true"]'
+  return records.some(record => {
+    const target = record.target instanceof Element ? record.target : record.target.parentElement
+    if (target === frame || target?.closest(selector)) return true
+    return [...record.addedNodes, ...record.removedNodes].some(node => node instanceof Element && (node.matches(selector) || node.querySelector(selector) !== null))
+  })
+}
+
 type CompactOverlayProps = PropsRuntime<'shell.overlay'> & PropsLocale<'mobile-layout'> & {
   toggleSidebar: () => void
 }
@@ -167,13 +181,21 @@ function CompactOverlay({ toggleSidebar, t, useSessions }: CompactOverlayProps) 
     }
 
     refresh()
-    const resizeObserver = new ResizeObserver(refresh)
-    const mutationObserver = new MutationObserver(refresh)
+    let pendingFrame: number | undefined
+    const schedule = (): void => {
+      if (pendingFrame !== undefined) return
+      pendingFrame = requestAnimationFrame(() => { pendingFrame = undefined; refresh() })
+    }
+    const resizeObserver = new ResizeObserver(schedule)
+    const mutationObserver = new MutationObserver(records => {
+      if (affectsCompactLayout(records, frame)) schedule()
+    })
     resizeObserver.observe(frame)
     mutationObserver.observe(frame, { childList: true, subtree: true })
     return () => {
       resizeObserver.disconnect()
       mutationObserver.disconnect()
+      if (pendingFrame !== undefined) cancelAnimationFrame(pendingFrame)
       frame.removeAttribute('data-dsh-mobile-compact')
       frame.removeAttribute('data-dsh-mobile-drawer-open')
       frame.removeAttribute('data-dsh-mobile-settings-open')
