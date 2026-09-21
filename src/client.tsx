@@ -4,9 +4,9 @@ import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots
 import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
 import STYLES from './styles.css'
 
-export const COMPACT_BREAKPOINT = 768
+export const COMPACT_BREAKPOINT = 1280
 export const COMPACT_BREAKPOINT_MIN = 720
-export const COMPACT_BREAKPOINT_MAX = 920
+export const COMPACT_BREAKPOINT_MAX = 1440
 export const COMPACT_PORTRAIT_RATIO = 0.75
 
 const STYLE_ID = 'dsh-mobile-layout/client.css'
@@ -39,7 +39,7 @@ export function isCompactViewport(width: number, height = width): boolean {
     COMPACT_BREAKPOINT_MAX,
     Math.max(COMPACT_BREAKPOINT_MIN, Math.round(height * COMPACT_PORTRAIT_RATIO)),
   )
-  return width < COMPACT_BREAKPOINT || width <= proportionalBreakpoint
+  return width <= COMPACT_BREAKPOINT || width <= proportionalBreakpoint
 }
 
 interface MobileMenuItem {

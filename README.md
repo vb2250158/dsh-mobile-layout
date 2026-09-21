@@ -12,7 +12,7 @@ Ratio-aware compact shell layer for DeepSeek Harness Web.
 ## Behavior
 
 - Wide landscape screens keep the complete standard DSH layout unchanged.
-- Compact mode follows both container width and height: portrait screens switch earlier, while sufficiently wide landscape screens keep the desktop layout.
+- Compact mode covers container widths up to and including 1280 CSS px, including common tablet landscape sizes. Taller portrait screens also use compact mode when their width is at most 75% of their height, capped at 1440 px; wider landscape screens keep the desktop layout.
 - The desktop session header is replaced by one 48 px mobile bar with no second row.
 - The far-left menu button turns the existing DSH sidebar into a proportional overlay drawer; it does not duplicate or replace sidebar content.
 - The far-right overflow button contains view switching, Session log, mode information, and other header actions.
