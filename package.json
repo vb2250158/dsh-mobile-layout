@@ -1,6 +1,6 @@
 {
   "name": "dsh-mobile-layout",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Ratio-aware compact shell layer for DeepSeek Harness with a single-row header and navigation drawer.",
   "type": "module",
   "main": "lib/index.js",
@@ -16,19 +16,25 @@
     "client": {
       "platform": "web",
       "inject": [
-        "@deepseek-ai/dsh-client-runtime",
         "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-ui-layout"
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-session"
       ]
     }
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4.0.1",
-    "@deepseek-ai/dsh-client-locale": ">=0.1.0-rc.8",
-    "@deepseek-ai/dsh-client-runtime": ">=0.1.0-rc.8",
-    "@deepseek-ai/dsh-client-ui-layout": ">=0.1.0-rc.8",
-    "@deepseek-ai/dsh-client-ui-slots": ">=0.1.0-rc.8",
-    "react": "^18.2.0"
+    "@deepseek-ai/dsh-client-locale": ">=0.2.1-alpha.1 <0.3.0",
+    "@deepseek-ai/dsh-client-ui-layout": ">=0.2.1-alpha.1 <0.3.0",
+    "@deepseek-ai/dsh-client-ui-slots": ">=0.2.1-alpha.1 <0.3.0",
+    "react": "^18.2.0",
+    "@deepseek-ai/dsh-api-remotes": ">=0.2.1-alpha.1 <0.3.0",
+    "@deepseek-ai/dsh-api-session-controller": ">=0.2.1-alpha.1 <0.3.0",
+    "@deepseek-ai/dsh-client-ui-renderer": ">=0.2.1-alpha.1 <0.3.0",
+    "@deepseek-ai/dsh-client-ui-session": ">=0.2.1-alpha.1 <0.3.0"
   },
   "devDependencies": {
     "esbuild": "0.25.12"
@@ -39,7 +45,8 @@
     "scripts",
     "tests",
     "cordis.patch.yml",
-    "README.md"
+    "README.md",
+    "docs"
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
