@@ -1,6 +1,6 @@
 {
   "name": "dsh-mobile-layout",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Ratio-aware compact shell layer for DeepSeek Harness with a single-row header and navigation drawer.",
   "type": "module",
   "main": "lib/index.js",
@@ -26,7 +26,7 @@
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": ">=4.0.1",
+    "@deepseek-ai/cordis": ">=4.0.5-alpha.1 <5.0.0",
     "@deepseek-ai/dsh-client-locale": ">=0.2.1-alpha.1 <0.3.0",
     "@deepseek-ai/dsh-client-ui-layout": ">=0.2.1-alpha.1 <0.3.0",
     "@deepseek-ai/dsh-client-ui-slots": ">=0.2.1-alpha.1 <0.3.0",
