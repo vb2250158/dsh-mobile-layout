@@ -1,13 +1,15 @@
 {
   "name": "dsh-mobile-layout",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Ratio-aware compact shell layer for DeepSeek Harness with a single-row header and navigation drawer.",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",
     "./client": "./lib/client.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
   },
   "dsh": {
     "bundle": {
@@ -46,12 +48,16 @@
     "tests",
     "cordis.patch.yml",
     "README.md",
-    "docs"
+    "docs",
+    "locale",
+    "icon.svg",
+    "ICON_LICENSE.txt"
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node --test tests/plugin.test.mjs",
     "check": "npm run build && npm test"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "icon": "./icon.svg"
 }

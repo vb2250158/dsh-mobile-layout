@@ -34,3 +34,7 @@ npm run check
 ```
 
 Settings layout overrides apply only inside the compact layout. Desktop uses the official centered dialog; compact screens retain the edge-fitting dialog and horizontal settings navigation.
+
+## Plugin display metadata
+
+The plugin list shows **Mobile layout** in English and **移动端布局** in Chinese, following the DSH interface language. `locale/en.json` and `locale/zh.json` provide the title and description; `icon.svg` supplies self-contained artwork. The package exports and publishes these resources. The icon is adapted from Lucide; see [ICON_LICENSE.txt](ICON_LICENSE.txt).
