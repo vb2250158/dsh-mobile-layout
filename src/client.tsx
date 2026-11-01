@@ -46,6 +46,10 @@ export function isCompactViewport(width: number, height = width): boolean {
   return width <= COMPACT_BREAKPOINT || width <= proportionalBreakpoint
 }
 
+export function drawerWidth(width: number): number {
+  return Math.max(0, Math.round(Math.min(320, width * 0.86, width - 48)))
+}
+
 interface MobileMenuItem {
   id: string
   label: string
@@ -179,7 +183,7 @@ function CompactOverlay({ toggleSidebar, t, useSessions }: CompactOverlayProps) 
       const nextCompact = rect.width > 0 && rect.height > 0 && isCompactViewport(rect.width, rect.height)
       setCompact(nextCompact)
       frame.toggleAttribute('data-dsh-mobile-compact', nextCompact)
-      frame.style.setProperty('--dsh-mobile-drawer-width', `${Math.max(0, Math.round(Math.min(rect.width * 0.86, rect.width - 48)))}px`)
+      frame.style.setProperty('--dsh-mobile-drawer-width', `${drawerWidth(rect.width)}px`)
       annotateFrame(frame)
       setRevision(value => value + 1)
     }

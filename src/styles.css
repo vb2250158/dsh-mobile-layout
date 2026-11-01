@@ -26,6 +26,10 @@
   transform: translateX(0);
 }
 
+[data-dsh-mobile-compact] > [data-dsh-mobile-sidebar] > :first-child {
+  width: 100% !important;
+}
+
 [data-dsh-mobile-compact][data-dsh-mobile-settings-open] > [data-dsh-mobile-sidebar] {
   inset: 0;
   width: 100% !important;

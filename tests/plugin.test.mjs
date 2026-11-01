@@ -41,6 +41,13 @@ test('client selects compact mode from the live container ratio', async () => {
   assert.equal(client.isCompactViewport(1920, 1080), false)
 })
 
+test('drawer stays bounded on tablets and leaves a backdrop on phones', async () => {
+  const { drawerWidth } = await loadClient()
+  assert.equal(drawerWidth(1250), 320)
+  assert.equal(drawerWidth(390), 320)
+  assert.equal(drawerWidth(300), 252)
+})
+
 test('client bundle contains the single-row controls, proportional drawer, and overflow menu', async () => {
   const bundle = await readFile(new URL('../lib/client.js', import.meta.url), 'utf8')
   assert.match(bundle, /dsh-mobile-layout-top-button/)
