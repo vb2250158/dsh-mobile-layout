@@ -82,3 +82,33 @@ test('compact layout ignores transcript and sidebar activity but updates header 
     assert.equal(client.affectsCompactLayout([record(frame)], frame), true)
   } finally { globalThis.Element = previous; dom.window.close() }
 })
+
+test('official drawer backdrop never becomes a column and viewport changes clear stale roles', { skip: !process.env.DSH_SOURCE_ROOT }, async () => {
+  const { createRequire } = await import('node:module')
+  const { resolve } = await import('node:path')
+  const require = createRequire(resolve(process.env.DSH_SOURCE_ROOT, 'packages/client/ui-primitives/package.json'))
+  const { JSDOM } = require('jsdom')
+  const dom = new JSDOM('<main><aside></aside><section><main data-global-panel>Media library</main></section><article data-rightbar-col></article><div data-shell-overlay></div></main>')
+  try {
+    const { annotateFrame } = await loadClient(), doc = dom.window.document, frame = doc.querySelector('main')
+    const [sidebar, center, details] = frame.children
+    const verify = () => {
+      annotateFrame(frame)
+      assert.equal(frame.querySelector('[data-dsh-mobile-sidebar]'), sidebar)
+      assert.equal(frame.querySelector('[data-dsh-mobile-conversation]'), center)
+      assert.equal(frame.querySelector('[data-dsh-mobile-details]'), details)
+      assert.equal(center.hasAttribute('data-dsh-mobile-details'), false)
+    }
+    verify()
+    const mask = doc.createElement('div'); mask.setAttribute('data-sidebar-mask', '')
+    mask.setAttribute('data-dsh-mobile-sidebar', '')
+    center.setAttribute('data-dsh-mobile-details', '')
+    frame.prepend(mask)
+    verify()
+    assert.equal(mask.hasAttribute('data-dsh-mobile-sidebar'), false)
+    mask.remove()
+    verify()
+    frame.prepend(mask)
+    verify()
+  } finally { dom.window.close() }
+})

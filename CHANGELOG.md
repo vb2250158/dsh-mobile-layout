@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.13 (2026-11-07)
+
+- 识别官方侧栏遮罩，避免窄屏切换后隐藏聊天和项目媒体库。
+- Exclude the official drawer backdrop when identifying shell columns and clear stale column annotations after viewport changes.
+
 ## 0.2.12 (2026-11-01)
 
 - 限制移动导航抽屉宽度并让侧栏内容填满，消除宽窗口中的空白。

@@ -103,8 +103,17 @@ function MoreIcon() {
   )
 }
 
-function annotateFrame(frame: HTMLElement): void {
-  const children = Array.from(frame.children)
+/** Annotate shell columns while excluding the official drawer backdrop.
+ * @param frame Current DSH shell container.
+ */
+export function annotateFrame(frame: HTMLElement): void {
+  const elements = Array.from(frame.children)
+  for (const child of elements) {
+    child.removeAttribute('data-dsh-mobile-sidebar')
+    child.removeAttribute('data-dsh-mobile-conversation')
+    child.removeAttribute('data-dsh-mobile-details')
+  }
+  const children = elements.filter(child => !child.hasAttribute('data-sidebar-mask'))
   const sidebar = children[0] as HTMLElement | undefined
   sidebar?.setAttribute('data-dsh-mobile-sidebar', '')
   children[1]?.setAttribute('data-dsh-mobile-conversation', '')

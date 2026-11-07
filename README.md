@@ -11,6 +11,10 @@ Refresh compact layout only for header, settings dialog, shell structure, or siz
 
 Ratio-aware compact shell layer for DeepSeek Harness Web.
 
+## Current shell columns
+
+The official drawer backdrop is excluded from column annotation. Entering or leaving compact mode recalculates sidebar, main panel and details roles, preserving conversations and global panels such as a project media library.
+
 ## Behavior
 
 - Wide landscape screens keep the complete standard DSH layout unchanged.
